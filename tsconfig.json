@@ -1,0 +1,4 @@
+{
+  "compilerOptions": { "target": "ES2022", "module": "commonjs", "strict": true, "esModuleInterop": true, "skipLibCheck": true, "noEmit": true, "resolveJsonModule": true },
+  "include": ["verifiers", "support", "reporters", "scripts", "playwright.config.ts"]
+}

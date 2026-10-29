@@ -1,0 +1,17 @@
+{
+  "name": "qivvra-verifiers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QIVVRA's independent verifiers (V1-V5) for VendorPay. Owned by QIVVRA, not by the application team.",
+  "scripts": {
+    "verify": "playwright test",
+    "summarize": "tsx scripts/summarize.ts",
+    "typecheck": "tsc -p ."
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

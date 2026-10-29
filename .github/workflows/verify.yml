@@ -1,0 +1,43 @@
+# Triggered by the QIVVRA engine once the PR's commit is confirmed in QE.
+# The application team has no write access to this repository.
+name: Verify
+
+on:
+  repository_dispatch:
+    types: [qivvra-verify]
+  workflow_dispatch:
+    inputs:
+      base_url: { description: Environment under test, required: true }
+      expected_sha: { description: PR head commit (short), required: true }
+      assessment_id: { description: QIVVRA assessment id, required: true }
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ github.event.client_payload.base_url || inputs.base_url }}
+      EXPECTED_SHA: ${{ github.event.client_payload.expected_sha || inputs.expected_sha }}
+      ASSESSMENT_ID: ${{ github.event.client_payload.assessment_id || inputs.assessment_id }}
+      VP_PASSWORD: ${{ secrets.VP_VERIFIER_PASSWORD }}
+      EVIDENCE_DIR: evidence/out
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Fetch application logs for V4
+        # Replace with your log source (S3, Loki, CloudWatch...). Without it V4/logs-masked is NOT ASSESSED.
+        run: |
+          if [ -n "${{ secrets.QE_LOG_URL }}" ]; then curl -fsS "${{ secrets.QE_LOG_URL }}" -o app.log && echo "LOG_PATH=$PWD/app.log" >> $GITHUB_ENV; fi
+      - name: Run verifiers V1-V5
+        run: npx playwright test || true   # outcomes are evidence, not a pass/fail of this job
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qivvra-evidence-${{ env.ASSESSMENT_ID }}
+          path: evidence/out/
