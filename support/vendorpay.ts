@@ -7,7 +7,7 @@ import { APIRequestContext, APIResponse, expect, test } from '@playwright/test';
 
 export const ID = {
   procurement: process.env.VP_PROCUREMENT ?? 'ravi.kumar',
-  ops: process.env.VP_OPS ?? 'anika.rao',
+  ops: process.env.VP_OPS ?? 'neha.joshi',
   approverA: process.env.VP_APPROVER_A ?? 'm.fernandes',
   approverB: process.env.VP_APPROVER_B ?? 'j.thomas',
   auditor: process.env.VP_AUDITOR ?? 'audit.viewer',

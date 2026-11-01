@@ -4,7 +4,7 @@
 # snapshot, and preview the disposition.
 #
 #   scripts/demo-matrix.sh <app-repo-dir> <policy-repo-dir> <base-ref> <sha> [<sha>...]
-#   scripts/demo-matrix.sh ../vendorpay-app ../vendorpay-policies main 8cafa75 88b666a aaf2a60
+#   scripts/demo-matrix.sh ../vendorpay-app ../vendorpay-policies main af51c26 ae50deb 3f6e20d
 #
 # Needs PostgreSQL reachable at DATABASE_URL (default postgres://vendorpay:vendorpay@localhost:5432/vendorpay)
 # and port 3000 free. The database is reset for every commit.

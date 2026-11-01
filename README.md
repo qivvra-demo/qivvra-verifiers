@@ -44,15 +44,15 @@ Checks report results, not obligations. The policy snapshot says which check is 
 
 ```bash
 npm ci
-BASE_URL=https://qe.vendorpay.example EXPECTED_SHA=aaf2a60 LOG_PATH=/mnt/qe-logs/app.log npm run verify
+BASE_URL=https://qe.vendorpay.example EXPECTED_SHA=3f6e20d LOG_PATH=/mnt/qe-logs/app.log npm run verify
 ```
 
 Then map the evidence onto a frozen policy snapshot and preview the disposition:
 
 ```bash
 (cd ../vendorpay-policies && npm run -s select -- --repo vendorpay --repo-dir ../vendorpay-app \
-   --range main...aaf2a60 --jira VP-184 --json) > snapshot.json
-npm run summarize -- --evidence evidence/aaf2a60/evidence.json --snapshot snapshot.json --out report.md
+   --range main...3f6e20d --jira VP-184 --json) > snapshot.json
+npm run summarize -- --evidence evidence/3f6e20d/evidence.json --snapshot snapshot.json --out report.md
 ```
 
 The QIVVRA engine does the same steps in production and posts the result to the PR.
@@ -62,10 +62,10 @@ The QIVVRA engine does the same steps in production and posts the result to the 
 `scripts/demo-matrix.sh` deploys each commit locally (git worktree, build, fresh database, `GIT_SHA` set), runs the verifiers, snapshots the policies and summarises. It needs PostgreSQL and port 3000.
 
 ```bash
-scripts/demo-matrix.sh ../vendorpay-app ../vendorpay-policies main 8cafa75 88b666a aaf2a60
+scripts/demo-matrix.sh ../vendorpay-app ../vendorpay-policies main af51c26 ae50deb 3f6e20d
 ```
 
-| | Commit 1 `8cafa75` | Commit 2 `88b666a` | Commit 3 `aaf2a60` |
+| | Commit 1 `af51c26` | Commit 2 `ae50deb` | Commit 3 `3f6e20d` |
 |---|---|---|---|
 | Team tests (theirs) | 25/25 pass | 26/26 pass | 29/29 pass |
 | FIN-001.1 requester cannot approve | **VIOLATED** | SUPPORTED | SUPPORTED |
