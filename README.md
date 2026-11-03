@@ -85,3 +85,7 @@ V1 also proved itself during development. A leftover server was still running co
 ## Identities
 
 Verifiers sign in as QIVVRA-provisioned users per environment (`VP_PROCUREMENT`, `VP_OPS`, `VP_APPROVER_A`, `VP_APPROVER_B`, `VP_AUDITOR`, `VP_PASSWORD`). The defaults are VendorPay's demo users.
+
+## Test identities
+
+`identities.yaml` lists the logins the verifiers use: environment variable, role and purpose. When an Admin onboards the application in QIVVRA, the wizard reads this file from the repository and asks only for the values, which QIVVRA stores encrypted and passes to the verifiers at run time. Adding a login means adding it here and in `support/`, by pull request; the Admin then supplies its value. The defaults in `support/vendorpay.ts` exist only for local runs.

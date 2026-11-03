@@ -1,0 +1,26 @@
+# The logins QIVVRA's verifiers use in the application under test.
+# QIVVRA reads this file when an Admin onboards the application: the Admin
+# sees these names and enters only the values (stored encrypted, never in Git).
+# Each login must belong to QIVVRA, not to the application team's tests.
+apiVersion: qivvra/v1
+kind: VerifierIdentities
+identities:
+  - env: VP_PROCUREMENT
+    role: Procurement
+    purpose: Creates suppliers and requests bank-account changes
+  - env: VP_OPS
+    role: Finance Ops
+    purpose: Schedules supplier payments
+  - env: VP_APPROVER_A
+    role: Finance Approver
+    purpose: Verifies accounts and approves bank changes
+  - env: VP_APPROVER_B
+    role: Finance Approver (a second person)
+    purpose: Releases payments; proves two different people are required
+  - env: VP_AUDITOR
+    role: Auditor
+    purpose: Reads the audit trail
+  - env: VP_PASSWORD
+    role: All of the above
+    purpose: Password for these logins
+    secret: true
